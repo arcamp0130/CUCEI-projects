@@ -1,4 +1,11 @@
+*
+!*/
+!*.*
+
 .vscode
+.github
+.devcontainer
+
 *.exe
 *.o
 *.i
