@@ -73,14 +73,20 @@ int main()
     }
 
     printf("---------------\n");
-
     printf("Adivina! Cual es el numero? \n > ");
     scanf("%d", &guessTry);
     isCorrect = guessTry == randNum;
   }
 
   clearScreen();
-  printf("Felicidades! El numero que adivinaste es %d.\n", randNum);
+  printf("    ===============    \n");
+  printf("  ===================  \n");
+  printf("=======================\n");
+  printf("|||   Felicidades   |||\n");
+  printf("=======================\n");
+  printf("  ===================  \n");
+  printf("    ===============    \n\n");
+  printf("El numero que adivinaste es %d.\n", randNum);
   printf("Adivinaste despues de %d intento%c\n", attempts, attempts > 1 ? 's' : '!');
   getch();
   return 0;
