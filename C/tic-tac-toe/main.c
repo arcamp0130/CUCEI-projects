@@ -8,7 +8,8 @@ void clearScreen()
   return;
 }
 
-void printBoard(unsigned short int board[3][3]) {
+void printBoard(unsigned short int board[3][3])
+{
   printf("--------------------\n\n");
   printf("     1 | 2 | 3   x\n\n");
   for (int i = 0; i < 3; i++)
@@ -16,9 +17,12 @@ void printBoard(unsigned short int board[3][3]) {
     printf(" %i  ", i + 1);
     for (int j = 0; j < 3; j++)
     {
-      if (board[i][j] != 0) {
-        printf(" %c", board[i][j] == 1 ? "O" : "X");
-      } else {
+      if (board[i][j] != 0)
+      {
+        printf(" %c", board[i][j] == 1 ? 'X' : 'O');
+      }
+      else
+      {
         printf("  ");
       }
       if (j < 2)
@@ -35,9 +39,9 @@ void printBoard(unsigned short int board[3][3]) {
 
 int main()
 {
-  unsigned short int board[3][3], turn = 0;
-  int coordinate[2]; // (x, y). User input
-  bool theresWinner = false;
+  unsigned short int board[3][3], winner = 0;
+  int coord[2];      // (x, y). User input;
+  bool turn = false; // false for 1st, true for 2st
   // Initialize in 0 to support verification
   for (int i = 0; i < 3; i++)
   {
@@ -47,12 +51,41 @@ int main()
     }
   }
 
-  do {
+  do
+  {
     clearScreen();
     printf("Gato!\n");
     printBoard(board);
-    theresWinner = true;
-  } while (!theresWinner);
+    printf("Jugador %i\n", !turn ? 1 : 2);
+    printf("Escriba coordenadas para su juego:\n");
+    printf(" x > ");
+    scanf("%d", &coord[0]);
+    printf(" y > ");
+    scanf("%d", &coord[1]);
+
+    // Check if valid coords
+    if (coord[0] >= 1 && coord[1] >= 1)
+    {
+      if (coord[0] <= 3 && coord[1] <= 3)
+      {
+        coord[0] -= 1; // x
+        coord[1] -= 1; // y
+        if (board[coord[1]][coord[0]] == 0)
+        {
+          board[coord[1]][coord[0]] = !turn ? 1 : 2;
+          turn = !turn;
+        }
+        else
+          printf("Espacio ocupado");
+      }
+      else
+        printf("Coordenadas fuera de rango");
+    }
+    else
+    {
+      printf("Coordenadas fuera de rango");
+    }
+    // winner = 1;
+  } while (winner == 0);
   // Print game board
-  
 }
