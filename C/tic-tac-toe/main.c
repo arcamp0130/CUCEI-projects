@@ -62,14 +62,14 @@ unsigned short int verifyCoordinates(
   if (coords[0] >= 1 && coords[1] >= 1)
   {
     if (coords[0] <= 3 && coords[1] <= 3)
-    {                 // When valid coordinates
+    {
+      // When valid coordinates
       coords[0] -= 1; // x
       coords[1] -= 1; // y
       if (board[coords[1]][coords[0]] == 0)
-        // if not busy space
-        return 0;
-      else // if busy space
-        return 1;
+        return 0; // if available space
+      else
+        return 1; // if busy space
     }
     else // if invalid coordinates
       return 2;
@@ -78,22 +78,26 @@ unsigned short int verifyCoordinates(
     return 2;
 }
 
+bool checkForWinner(unsigned short int board[3][3], bool turn) {
+
+
+  return false;
+}
+
 int main()
 {
   unsigned short int
-      board[3][3],      // Game board
-      games = 0,        // Games played
-      inputStatus = 0;  // Game status
-  int coords[2];        // (x, y). User input
-  bool turn = false,    // false for 1st, true for 2st
-       winner = false;  // if there's winner
-  // Initialize in 0 to support verification
+      board[3][3],     // Game board
+      games = 0,       // Games played
+      inputStatus = 0; // Game input status
+  int coords[2];       // (x, y). User input
+  bool turn = false,   // false for 1st, true for 2st
+      winner = false;  // if there's winner
+  // Initialize game board in 0 to support verification
   for (int i = 0; i < 3; i++)
   {
     for (int j = 0; j < 3; j++)
-    {
       board[i][j] = 0;
-    }
   }
 
   do
@@ -113,21 +117,27 @@ int main()
     inputStatus = verifyCoordinates(coords, board);
     if (inputStatus == 0)
     {
-      board[coords[1]][coords[0]] = !turn ? 1 : 2;
+      board[coords[1]][coords[0]] = turn ? 2 : 1;
       turn = !turn;
       games++;
     }
 
+    if (games >= 5)
+      winner = checkForWinner(board, turn);
+
   } while (!winner && games < 9);
+
   clearScreen();
   printBoard(board);
+
   if (!winner)
-  {
     printf("Empate!\n");
-  }
   else
-  {
-    printf("Gano el jugador %i\n", !turn ? 1 : 2);
-  }
+    // Here, 'turn' value reaches opposite turn:
+    // if P1 wins, we get that P2 wins (???).
+    // So we deny value to write correct turn
+    // Finally, this' writting the correct winner
+    printf("Gana el jugador %i\n", !turn ? 2 : 1);
+
   return 0;
 }
