@@ -78,8 +78,66 @@ unsigned short int verifyCoordinates(
     return 2;
 }
 
-bool checkForWinner(unsigned short int board[3][3], bool turn) {
+// Only reachable when valid coordinates.
+bool checkForWinner(
+    unsigned short int board[3][3],
+    int lastCoords[2], // (y, x)
+    bool turn)
+{
+  // Getting coordinates starting from 0.
+  lastCoords[0] -= 1;
+  lastCoords[1] -= 1;
 
+  // check from where last move begins
+  // All notations will be in (x, y)
+  // x = 0
+  if (lastCoords[1] == 0)
+  {
+    // (1, 1)
+    if (lastCoords[0] == 0)
+    {
+    }
+    // (1, 2)
+    else if (lastCoords[0] == 1)
+    {
+    }
+    // (1, 3)
+    else
+    {
+    }
+  }
+  // x = 1
+  else if (lastCoords[1] == 1)
+  {
+    // (2, 1)
+    if (lastCoords[0] == 0)
+    {
+    }
+    // (2, 2)
+    else if (lastCoords[0] == 1)
+    {
+    }
+    // (3, 3)
+    else
+    {
+    }
+  }
+  // x = 2
+  else
+  {
+    // (3, 1)
+    if (lastCoords[0] == 0)
+    {
+    }
+    // (3, 2)
+    else if (lastCoords[0] == 1)
+    {
+    }
+    // (3, 3)
+    else
+    {
+    }
+  }
 
   return false;
 }
@@ -123,7 +181,7 @@ int main()
     }
 
     if (games >= 5)
-      winner = checkForWinner(board, turn);
+      winner = checkForWinner(board, coords, turn);
 
   } while (!winner && games < 9);
 
