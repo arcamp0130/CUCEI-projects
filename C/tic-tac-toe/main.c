@@ -46,7 +46,9 @@ void printWarn(unsigned short int inputStatus)
     if (inputStatus == 1)
       printf("Espacio ocupado");
     else if (inputStatus == 2)
-      printf("Coordenadas fuera de rango");
+      printf("Coordenada x fuera de rango");
+    else if (inputStatus == 3)
+      printf("Coordenada y fuera de rango");
     else
       printf("Entrada inesperada");
   }
@@ -59,10 +61,10 @@ unsigned short int verifyCoordinates(
     int coords[2],
     unsigned short int board[3][3])
 {
-  if (coords[0] >= 1 && coords[1] >= 1)
-  {
-    if (coords[0] <= 3 && coords[1] <= 3)
-    {
+  if (1 <= coords[1] && coords[1] <= 3)
+  { // coordinates in y
+    if (1 <= coords[0] && coords[0] <= 3)
+    { // coordinates in x
       // When valid coordinates
       coords[0] -= 1; // x
       coords[1] -= 1; // y
@@ -71,15 +73,15 @@ unsigned short int verifyCoordinates(
       else
         return 1; // if busy space
     }
-    else // if invalid coordinates
+    else // if invalid x coordinate
       return 2;
   }
-  else // if invalid coordinates
-    return 2;
+  else // if invalid y coordinate
+    return 3;
 }
 
 // Only reachable when valid coordinates.
-bool checkForWinner(
+unsigned short int checkForWinner(
     unsigned short int board[3][3],
     int lastCoords[2], // (y, x)
     bool turn)
@@ -88,54 +90,12 @@ bool checkForWinner(
   lastCoords[0] -= 1;
   lastCoords[1] -= 1;
 
-  // check from where last move begins
-  // All notations will be in (x, y)
-  // x = 0
-  if (lastCoords[1] == 0)
-  {
-    // (1, 1)
-    if (lastCoords[0] == 0)
-    {
-    }
-    // (1, 2)
-    else if (lastCoords[0] == 1)
-    {
-    }
-    // (1, 3)
-    else
-    {
-    }
-  }
-  // x = 1
-  else if (lastCoords[1] == 1)
-  {
-    // (2, 1)
-    if (lastCoords[0] == 0)
-    {
-    }
-    // (2, 2)
-    else if (lastCoords[0] == 1)
-    {
-    }
-    // (3, 3)
-    else
-    {
-    }
-  }
-  // x = 2
-  else
-  {
-    // (3, 1)
-    if (lastCoords[0] == 0)
-    {
-    }
-    // (3, 2)
-    else if (lastCoords[0] == 1)
-    {
-    }
-    // (3, 3)
-    else
-    {
+  for (int i = 0; i < 3; i++) { // check for y axis
+    for (int j = 0; j < 3; j++) { // check for x axis
+      if (board[i][j] == turn)
+      {
+
+      }
     }
   }
 
@@ -147,10 +107,10 @@ int main()
   unsigned short int
       board[3][3],     // Game board
       games = 0,       // Games played
-      inputStatus = 0; // Game input status
+      inputStatus = 0, // Game input status
+      winner = 0;  // if there's winner
   int coords[2];       // (x, y). User input
-  bool turn = false,   // false for 1st, true for 2st
-      winner = false;  // if there's winner
+  bool turn = false;   // false for 1st, true for 2st
   // Initialize game board in 0 to support verification
   for (int i = 0; i < 3; i++)
   {
