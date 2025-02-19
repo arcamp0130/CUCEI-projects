@@ -1,43 +1,54 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-void cleanScreen() {
+void cleanScreen()
+{
   printf("\033[H\033[J");
   return;
 }
 
-// Task: print the following pattern with iterative cycles
-// This example is for n = 4
-//       1
-//     2 1 2
-//   3 2 1 2 3
-// 4 3 2 1 2 3 4
-//      ...
-// With a range provided for user, 
-// 3 <= n <= 10, with out-of-range detection
-//
-// - At least 2 nested cycles
-// - Verify n to be in-range
-// - Use proper spacing when printing pyramid
-// - DON'T USE ARRAYS
-
-void printPattern(int n) {
-  
+void printPattern(int n)
+{
+  for (int i = 0; i <= n - 1; i++)
+  {
+    //Only to keep symmetry when n = 10
+    if (i < 9) 
+      printf(" ");
+    
+    // Print spaces before first term of row
+    for (int j = 1; j < n - i; j++)
+      printf("  ");
+    
+    // print ascendant terms (n to 1)
+    for (int j = 0; j <= i; j++) 
+      printf("%i ", i - j + 1);
+    
+    // print ascendant terms from 2nd row (2 to n)
+    for (int j = 1; j <= i; j++) 
+      printf("%i ", j + 1);
+    
+    printf("\n");
+  }
+  printf("------\n");
   return;
 }
 
-int main() {
+int main()
+{
   cleanScreen();
-  int size = 0;
+  int rows = 0;
   printf("Imprimir patron numerico\n");
   printf("----------------\n");
   printf("Escriba un numero entre 3 y 10 para imprimir su patron numerico\n > ");
-  scanf("%d", &size);
-  if (3 <= size && size <= 10) 
-    printPattern(size);
-  else 
+  scanf("%d", &rows);
+  printf("----------------\n\n");
+  
+  if (3 <= rows && rows <= 10)
+    printPattern(rows);
+  else
     printf("El numero ingresado no es valido\n");
 
-  system("PAUSE");
+  printf("Fin del patron\n");
+  printf("----------------\n");
+
   return 0;
 }
