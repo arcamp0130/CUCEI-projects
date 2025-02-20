@@ -83,21 +83,30 @@ unsigned short int verifyCoordinates(
 // Only reachable when valid coordinates.
 unsigned short int checkForWinner(
     unsigned short int board[3][3],
-    int lastCoords[2], // (y, x)
-    bool turn)
+    int turn)
 {
-  // Getting coordinates starting from 0.
-  lastCoords[0] -= 1;
-  lastCoords[1] -= 1;
 
-  for (int i = 0; i < 3; i++) { // check for y axis
-    for (int j = 0; j < 3; j++) { // check for x axis
-      if (board[i][j] == turn)
-      {
+  // Initialize colBreak with false
+  bool colBreak[3] = {false, false, false};
 
-      }
+  for (int y = 0; y < 3; y++)
+  { // y axis
+    int counter = 0;
+    for (int x = 0; x < 3; x++)
+    { // x axis
+      if (board[y][x] == turn)
+        counter++;
+      else
+        colBreak[x] = true;
     }
+    if (counter == 3)
+      return true;
   }
+
+  // Check if theres complete column with previous 'for' sentences
+  for (int i = 0; i < 3; i++)
+    if (!colBreak[i])
+      return true;
 
   return false;
 }
@@ -108,15 +117,14 @@ int main()
       board[3][3],     // Game board
       games = 0,       // Games played
       inputStatus = 0, // Game input status
-      winner = 0;  // if there's winner
+      winner = 0;      // if there's winner
   int coords[2];       // (x, y). User input
   bool turn = false;   // false for 1st, true for 2st
+
   // Initialize game board in 0 to support verification
   for (int i = 0; i < 3; i++)
-  {
     for (int j = 0; j < 3; j++)
       board[i][j] = 0;
-  }
 
   do
   {
@@ -141,7 +149,8 @@ int main()
     }
 
     if (games >= 5)
-      winner = checkForWinner(board, coords, turn);
+      // We deny 'turn' 'cause at this point it's opposite
+      winner = checkForWinner(board, !turn ? 2 : 1);
 
   } while (!winner && games < 9);
 
