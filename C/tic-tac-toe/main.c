@@ -18,13 +18,10 @@ void printBoard(unsigned short int board[3][3])
     for (int j = 0; j < 3; j++)
     {
       if (board[i][j] != 0)
-      {
         printf(" %c", board[i][j] == 1 ? 'X' : 'O');
-      }
       else
-      {
         printf("  ");
-      }
+
       if (j < 2)
         printf(" |");
     }
@@ -108,6 +105,32 @@ unsigned short int checkForWinner(
     if (!colBreak[i])
       return true;
 
+  // Check for winner in diagonal
+  if (board[1][1] == turn) // Seek value in the center
+  {
+    if (board[0][0] == turn && turn == board[2][2])
+      return true;
+    if (board[2][0] == turn && turn == board[0][2])
+      return true;
+
+    // int counter = 0;
+    // // (0, 0) to (2, 2) diagonal
+    // for (int i = 0; i <= 2; i += 2)
+    //   counter +=
+    //       board[i][i] == turn ? 1 : 0;
+
+    // if (counter == 2)
+    //   return true;
+    // else
+    //   counter = 0;
+    // // (0, 2) to (2, 0) diagonal
+    // for (int i = 0; i <= 2; i += 2)
+    //   counter +=
+    //       board[i][2 - i] ? 1 : 0;
+    // if (counter == 2)
+    //   return true;
+
+  }
   return false;
 }
 
