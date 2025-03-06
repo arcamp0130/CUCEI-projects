@@ -1,23 +1,100 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#define prod 10
+#define ITEMS 10
+#define STORES 3
+
+// Clear console screen. Only works in the newest platforms.
+void cleanScreen()
+{
+  printf("\033[H\033[J");
+  return;
+}
+
+// Print full inventory, with IDs, prices and stock per store
+void printInventory(int *IDs)
+{
+  for (int i = 0; i < ITEMS; i++)
+  {
+    printf("ID %i: %i\n", i + 1, IDs[i]);
+    // TODO: print price and stock per store
+  }
+
+  return;
+}
+
+// Check if sumbitted ID already exists
+bool idExists(int *IDs, int input)
+{
+  for (int i = 0; i < ITEMS; i++)
+    if (IDs[i] == input)
+      return true;
+
+  return false;
+}
+
+// Verify if input is a positive integer;
+// belongs to Natural numbers.
+bool isPositiveInteger(float input)
+{
+  return (int)input == input && input > 0;
+}
+
+// Set product data with ID, price and stock per store
+bool setData(int *IDs)
+{
+  // Create product
+  for (int i = 0; i < ITEMS; i++)
+  {
+    float input = 0;
+    bool err = false;
+    // Set ID
+    do
+    {
+      cleanScreen();
+      if (err)
+        printf("ID invalido, intente de nuevo\n-----\n");
+
+      printf("Ingresa el ID del producto %i\n > ", i + 1);
+      scanf(" %f", &input);
+      err = idExists(IDs, input) || !isPositiveInteger(input);
+    } while (err);
+    IDs[i] = (int)input;
+
+    // Set price
+    /* TODO */
+
+    // Set stock
+    /* TODO */
+  }
+
+  return true;
+}
 
 int main()
 {
-  bool exit = false;
-  char option;
-  int ID[prod];
-  float precios[prod];
-  int existencia[prod][3];
+  cleanScreen();
+  bool exit = false,
+       isDataSetted = false;
+  unsigned int ID[ITEMS], products = 0;
+  float prices[ITEMS];
+  unsigned int stock[ITEMS][STORES];
   do
   {
-    printf("Ingresa la opcion deseada: \n a. Cargar datos de productos \n b. Mostrar inventario completo \n c. Calcular valor total del inventario \n d. Encontrar el producto con mayor y menor existencia total \n e. Actualizar existencias de un producto específico en una sucursal \n");
-    scanf("%c", &option);
-    switch (option)
+    char c;
+    printf("Ingresa la opcion deseada:\n [a]. Cargar datos de productos\n [b]. Mostrar inventario completo\n [c]. Calcular valor total del inventario\n [d]. Encontrar el producto con mayor y menor existencia total\n [e]. Actualizar existencias de un producto específico en una sucursal\n [f]. Salir\n  > ");
+    scanf(" %c", &c);
+    cleanScreen();
+    switch (c)
     {
     case 'a':
+      isDataSetted = setData(ID);
       break;
     case 'b':
+      if (isDataSetted)
+        printInventory(ID);
+      else
+        printf("No hay datos por mostrar\n");
       break;
     case 'c':
       break;
