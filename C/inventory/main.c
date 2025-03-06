@@ -12,11 +12,13 @@ void cleanScreen()
 }
 
 // Print full inventory, with IDs, prices and stock per store
-void printInventory(int *IDs)
+void printInventory(int *IDs, float *prices)
 {
   for (int i = 0; i < ITEMS; i++)
   {
-    printf("ID %i: %i\n", i + 1, IDs[i]);
+    printf("ID %i:\n", IDs[i]);
+    printf("  Precio: $%0.2f\n", prices[i]);
+    printf("-----\n\n");
     // TODO: print price and stock per store
   }
 
@@ -41,7 +43,7 @@ bool isPositiveInteger(float input)
 }
 
 // Set product data with ID, price and stock per store
-bool setData(int *IDs)
+bool setData(int *IDs, float *prices)
 {
   // Create product
   for (int i = 0; i < ITEMS; i++)
@@ -62,10 +64,25 @@ bool setData(int *IDs)
     IDs[i] = (int)input;
 
     // Set price
-    /* TODO */
+    do
+    {
+      cleanScreen();
+      if (err)
+        printf("Precio invalido, intente de nuevo\n----\n");
+
+      printf("Ingresa el precio del producto %i\n > $", i + 1);
+      scanf(" %f", &input);
+      err = input <= 0;
+    } while (err);
+    prices[i] = input;
+
 
     // Set stock
-    /* TODO */
+    // do
+    // {
+    //   clearScreen();
+    //   /* TODO */
+    // } while (err);
   }
 
   return true;
@@ -82,17 +99,17 @@ int main()
   do
   {
     char c;
-    printf("Ingresa la opcion deseada:\n [a]. Cargar datos de productos\n [b]. Mostrar inventario completo\n [c]. Calcular valor total del inventario\n [d]. Encontrar el producto con mayor y menor existencia total\n [e]. Actualizar existencias de un producto específico en una sucursal\n [f]. Salir\n  > ");
+    printf("Ingresa la opcion deseada:\n [a]. Cargar datos de productos\n [b]. Mostrar inventario completo\n [c]. Calcular valor total del inventario\n [d]. Encontrar el producto con mayor y menor existencia total\n [e]. Actualizar existencias de un producto especifico en una sucursal\n [f]. Salir\n  > ");
     scanf(" %c", &c);
     cleanScreen();
     switch (c)
     {
     case 'a':
-      isDataSetted = setData(ID);
+      isDataSetted = setData(ID, prices);
       break;
     case 'b':
       if (isDataSetted)
-        printInventory(ID);
+        printInventory(ID, prices);
       else
         printf("No hay datos por mostrar\n");
       break;
