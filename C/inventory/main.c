@@ -12,12 +12,21 @@ void cleanScreen()
 }
 
 // Print full inventory, with IDs, prices and stock per store
-void printInventory(int *IDs, float *prices)
+void printInventory(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 {
   for (int i = 0; i < ITEMS; i++)
   {
+    int totalExistences = 0;
     printf("ID %i:\n", IDs[i]);
     printf("  Precio: $%0.2f\n", prices[i]);
+    printf("  Existencias:\n");
+    for (int j = 0; j < STORES; j++)
+    {
+      printf("    Tienda %i: %i\n", j + 1, stock[i][j]);
+      totalExistences += stock[i][j];
+    }
+    printf("    ----\n");
+    printf("    Total: %i\n", totalExistences);
     printf("-----\n\n");
     // TODO: print price and stock per store
   }
@@ -26,7 +35,7 @@ void printInventory(int *IDs, float *prices)
 }
 
 // Check if sumbitted ID already exists
-bool idExists(int *IDs, int input)
+bool idExists(unsigned int *IDs, int input)
 {
   for (int i = 0; i < ITEMS; i++)
     if (IDs[i] == input)
@@ -43,7 +52,7 @@ bool isPositiveInteger(float input)
 }
 
 // Set product data with ID, price and stock per store
-bool setData(int *IDs, float *prices)
+bool setData(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 {
   // Create product
   for (int i = 0; i < ITEMS; i++)
@@ -76,15 +85,25 @@ bool setData(int *IDs, float *prices)
     } while (err);
     prices[i] = input;
 
-
-    // Set stock
-    // do
-    // {
-    //   clearScreen();
-    //   /* TODO */
-    // } while (err);
+    // Set stock store by store
+    for (int j = 0; j < STORES; j++)
+    {
+      do
+      {
+        cleanScreen();
+        if (err)
+        printf("Numero de existencias invalido, intente de nuevo\n-----\n");
+        
+        printf("Ingrese existencias para el producto %i en la tienda %i:\n > ", i + 1, j + 1);
+        scanf(" %f", &input);
+        err = !isPositiveInteger(input);
+      } while (err);
+      stock[i][j] = input;
+    }
   }
-
+  cleanScreen();
+  printf("Datos cargados correctamente\n");
+  
   return true;
 }
 
@@ -92,24 +111,25 @@ int main()
 {
   cleanScreen();
   bool exit = false,
-       isDataSetted = false;
+  isDataSetted = false;
   unsigned int ID[ITEMS], products = 0;
   float prices[ITEMS];
   unsigned int stock[ITEMS][STORES];
   do
   {
     char c;
+    printf("\n----------\n");
     printf("Ingresa la opcion deseada:\n [a]. Cargar datos de productos\n [b]. Mostrar inventario completo\n [c]. Calcular valor total del inventario\n [d]. Encontrar el producto con mayor y menor existencia total\n [e]. Actualizar existencias de un producto especifico en una sucursal\n [f]. Salir\n  > ");
     scanf(" %c", &c);
     cleanScreen();
     switch (c)
     {
     case 'a':
-      isDataSetted = setData(ID, prices);
+      isDataSetted = setData(ID, prices, stock);
       break;
     case 'b':
       if (isDataSetted)
-        printInventory(ID, prices);
+        printInventory(ID, prices, stock);
       else
         printf("No hay datos por mostrar\n");
       break;
