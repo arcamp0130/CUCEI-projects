@@ -14,26 +14,26 @@ Stakeholders need a client to manage all their products, stock, and other elemen
 
 ## Requirements
 ### Data storage
-- Create a vector to store all 10 products IDs as `int`.
-- Create a vector to store products price as `float`.
-- Create a $10 \times 3$ matrix to store the following:
+- [X] Create a vector to store all 10 products IDs as `int`.
+- [X] Create a vector to store products price as `float`.
+- [X] Create a $10 \times 3$ matrix to store the following:
   - Every row represents a product.
   - Each column represents a store.
   - It contains products stock on every store.
 
 ### Validations
-- Unique IDs.
-- Prices must be positive values (`float`).
-- Stock must be integer and positive (`unsigned int`).
+- [X] Unique IDs.
+- [X] Prices must be positive values (`float`).
+- [X] Stock must be integer and positive (`unsigned int`).
 
 ### Navigation
 You must create a menu with the following options:
 
-1. Set products data (`id`, `price`, `stock`).
-2. Show full inventory (IDs, prices and stock by store).
-3. Show full inventory in budget/price by using $price \times stock$
-   - To a specific store.
-   - To all stores.
-4. Find product(s) with less and more total stock.
-5. Update a product stock on a specific store.
-6. Exit program
+1. [X] Set products data (`id`, `price`, `stock`).
+2. [X] Show full inventory (IDs, prices and stock by store) only when there is setted data.
+3. [ ] Show full inventory in budget/price by using $price \times stock$
+   - [ ] To a specific store.
+   - [ ] To all stores.
+4. [ ] Find product(s) with less and more stock across all stores.
+5. [ ] Update a product stock on a specific store.
+6. [X] Exit program
