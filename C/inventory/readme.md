@@ -31,9 +31,9 @@ You must create a menu with the following options:
 
 1. [X] Set products data (`id`, `price`, `stock`).
 2. [X] Show full inventory (IDs, prices and stock by store) only when there is setted data.
-3. [ ] Show full inventory in budget/price by using $price \times stock$
-   - [ ] To a specific store.
-   - [ ] To all stores.
+3. [X] Show full inventory in budget/price by using $price \times stock$
+   - [X] To a specific store.
+   - [X] To all stores.
 4. [ ] Find product(s) with less and more stock across all stores.
 5. [ ] Update a product stock on a specific store.
 6. [X] Exit program
