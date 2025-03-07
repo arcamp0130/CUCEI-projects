@@ -11,6 +11,82 @@ void cleanScreen()
   return;
 }
 
+// Check if sumbitted ID already exists
+bool idExists(unsigned int *IDs, int input)
+{
+  for (int i = 0; i < ITEMS; i++)
+    if (IDs[i] == input)
+      return true;
+
+  return false;
+}
+
+// Verify if input is a positive integer;
+// belongs to Natural numbers.
+bool isPositiveInteger(float input)
+{
+  // Evaluating if input has decimal part and
+  // being higer than 0
+  return (int)input == input && input > 0;
+}
+
+// Set product data with ID, price and stock per store
+bool setData(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
+{
+  // Create product
+  for (int i = 0; i < ITEMS; i++)
+  {
+    float input = 0;
+    bool err = false;
+    // Set ID
+    do
+    {
+      cleanScreen();
+      if (err)
+        printf("ID invalido, intente de nuevo\n-----\n");
+
+      printf("Ingresa el ID del producto %i\n > ", i + 1);
+      scanf(" %f", &input);
+      err = idExists(IDs, input) || !isPositiveInteger(input);
+    } while (err);
+    IDs[i] = (int)input;
+
+    // Set price
+    do
+    {
+      cleanScreen();
+      if (err)
+        printf("Precio invalido, intente de nuevo\n----\n");
+
+      printf("Ingresa el precio del producto %i\n > $", i + 1);
+      scanf(" %f", &input);
+      err = input <= 0;
+    } while (err);
+    prices[i] = input;
+
+    // Set stock store by store
+    for (int j = 0; j < STORES; j++)
+    {
+      do
+      {
+        cleanScreen();
+        if (err)
+          printf("Numero de existencias invalido, intente de nuevo\n-----\n");
+
+        printf("Ingrese existencias para el producto %i en la tienda %i:\n > ", i + 1, j + 1);
+        scanf(" %f", &input);
+        // With capacity to have no stock of the relative product
+        err = !isPositiveInteger(input) && input != 0;
+      } while (err);
+      stock[i][j] = input;
+    }
+  }
+  cleanScreen();
+  printf("Datos cargados correctamente\n");
+
+  return true;
+}
+
 // Initialize every data set with 0's
 void initData(int *ID, float *prices, unsigned int stock[][STORES])
 {
@@ -118,80 +194,24 @@ void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
   return;
 }
 
-// Check if sumbitted ID already exists
-bool idExists(unsigned int *IDs, int input)
+// Uploads stock of an existent product
+void uploadProductStock(unsigned int *ID, unsigned int stock[][STORES])
 {
-  for (int i = 0; i < ITEMS; i++)
-    if (IDs[i] == input)
-      return true;
+  float input = 0;
+  bool err = false;
 
-  return false;
-}
-
-// Verify if input is a positive integer;
-// belongs to Natural numbers.
-bool isPositiveInteger(float input)
-{
-  // Evaluating if input has decimal part and
-  // being higer than 0
-  return (int)input == input && input > 0;
-}
-
-// Set product data with ID, price and stock per store
-bool setData(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
-{
-  // Create product
-  for (int i = 0; i < ITEMS; i++)
+  do
   {
-    float input = 0;
-    bool err = false;
-    // Set ID
-    do
-    {
-      cleanScreen();
-      if (err)
-        printf("ID invalido, intente de nuevo\n-----\n");
+    cleanScreen();
+    if (err)
+      ;
+    printf("ID no valido, intente de nuevo\n-----\n");
+    printf("Ingrese ID del producto para actualizar existencias:\n > ");
+    scanf(" %f", &input);
+    err = !isPositiveInteger(input) || !idExists(ID, (int)input);
+  } while (err);
 
-      printf("Ingresa el ID del producto %i\n > ", i + 1);
-      scanf(" %f", &input);
-      err = idExists(IDs, input) || !isPositiveInteger(input);
-    } while (err);
-    IDs[i] = (int)input;
-
-    // Set price
-    do
-    {
-      cleanScreen();
-      if (err)
-        printf("Precio invalido, intente de nuevo\n----\n");
-
-      printf("Ingresa el precio del producto %i\n > $", i + 1);
-      scanf(" %f", &input);
-      err = input <= 0;
-    } while (err);
-    prices[i] = input;
-
-    // Set stock store by store
-    for (int j = 0; j < STORES; j++)
-    {
-      do
-      {
-        cleanScreen();
-        if (err)
-          printf("Numero de existencias invalido, intente de nuevo\n-----\n");
-
-        printf("Ingrese existencias para el producto %i en la tienda %i:\n > ", i + 1, j + 1);
-        scanf(" %f", &input);
-        // With capacity to have no stock of the relative product
-        err = !isPositiveInteger(input) && input != 0;
-      } while (err);
-      stock[i][j] = input;
-    }
-  }
-  cleanScreen();
-  printf("Datos cargados correctamente\n");
-
-  return true;
+  return;
 }
 
 int main()
@@ -236,6 +256,10 @@ int main()
         printf("No hay datos por mostrar\n");
       break;
     case 'e':
+      if (isDataSetted)
+        uploadProductStock(ID, stock);
+      else
+        printf("No hay datos por mostrar\n");
       break;
     case 'f':
       exit = true;
