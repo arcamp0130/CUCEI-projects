@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define ITEMS 10
+#define ITEMS 2
 #define STORES 3
 
 // Clear console screen. Only works in the newest platforms.
@@ -12,13 +12,13 @@ void cleanScreen()
 }
 
 // Check if sumbitted ID already exists
-bool idExists(unsigned int *IDs, int input)
+int getProductIndex(unsigned int *IDs, int target)
 {
   for (int i = 0; i < ITEMS; i++)
-    if (IDs[i] == input)
-      return true;
+    if (IDs[i] == target)
+      return i;
 
-  return false;
+  return -1;
 }
 
 // Verify if input is a positive integer;
@@ -47,7 +47,8 @@ bool setData(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 
       printf("Ingresa el ID del producto %i\n > ", i + 1);
       scanf(" %f", &input);
-      err = idExists(IDs, input) || !isPositiveInteger(input);
+      // Know if ID doesn't exist and input is a Natural number
+      err = getProductIndex(IDs, (int)input) != -1 || !isPositiveInteger(input);
     } while (err);
     IDs[i] = (int)input;
 
@@ -104,6 +105,7 @@ void initData(int *ID, float *prices, unsigned int stock[][STORES])
 void printInventory(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 {
   cleanScreen();
+  printf("Inventario:\n----------\n");
   for (int i = 0; i < ITEMS; i++)
   {
     int totalExistences = 0;
@@ -128,6 +130,7 @@ void printInventory(unsigned int *IDs, float *prices, unsigned int stock[][STORE
 void printInventoryValue(float *prices, unsigned int stock[][STORES])
 {
   cleanScreen();
+  printf("Valor total del inventario en cada tienda y en su totalidad:\n----------\n");
   double totalValue = 0;
   // Search in store
   for (int i = 0; i < STORES; i++)
@@ -154,6 +157,7 @@ void printInventoryValue(float *prices, unsigned int stock[][STORES])
 void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
 {
   cleanScreen();
+  printf("Productos con menor y mayor existencia en tiendas:\n----------\n");
   // min-max item is organized as [ID, stock, store]
   // Initialize with first item data and store 1.
   int
@@ -195,22 +199,51 @@ void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
 }
 
 // Uploads stock of an existent product
-void uploadProductStock(unsigned int *ID, unsigned int stock[][STORES])
+void uploadProductStock(unsigned int *IDs, unsigned int stock[][STORES])
 {
   float input = 0;
   bool err = false;
+  unsigned int id, store, newStock, productIndex;
 
   do
   {
     cleanScreen();
     if (err)
-      ;
-    printf("ID no valido, intente de nuevo\n-----\n");
+      printf("ID no valido, intente de nuevo.\n-----\n");
     printf("Ingrese ID del producto para actualizar existencias:\n > ");
     scanf(" %f", &input);
-    err = !isPositiveInteger(input) || !idExists(ID, (int)input);
+    productIndex = getProductIndex(IDs, (int)input);
+    err = !isPositiveInteger(input) || productIndex == -1;
   } while (err);
+  id = (int)input;
 
+  do
+  {
+    cleanScreen();
+    if (err)
+      printf("Numero de tienda invalido, intente de nuevo.\n-----\n");
+    printf("Ingrese numero de tienda para modificar existencias del producto con ID %i:\n > ", id);
+    scanf(" %f", &input);
+    err = !isPositiveInteger(input) || input > STORES;
+  } while (err);
+  store = (int)input - 1;
+
+  do
+  {
+    cleanScreen();
+    if (err)
+      printf("Nuevo numero de existencias invalido, intente de nuevo.\n-----\n");
+    printf("Ingrese nuevo numero de existencias del produccto con ID %i en la tienda %i:\n > ", id, store + 1);
+    scanf(" %f", &input);
+    // Able to enter 0 as new product stock
+    err = !isPositiveInteger(input) && input != 0;
+  } while (err);
+  newStock = (int)input;
+
+  stock[productIndex][store] = newStock;
+
+  cleanScreen();
+  printf("Valor modificado existosamente");
   return;
 }
 
