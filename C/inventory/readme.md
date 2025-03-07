@@ -34,6 +34,6 @@ You must create a menu with the following options:
 3. [X] Show full inventory in budget/price by using $price \times stock$
    - [X] To a specific store.
    - [X] To all stores.
-4. [ ] Find product(s) with less and more stock across all stores.
+4. [X] Find product(s) with less and more stock across all stores.
 5. [ ] Update a product stock on a specific store.
 6. [X] Exit program

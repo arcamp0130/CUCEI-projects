@@ -11,7 +11,7 @@ void cleanScreen()
   return;
 }
 
-//Initialize every data set with 0's 
+// Initialize every data set with 0's
 void initData(int *ID, float *prices, unsigned int stock[][STORES])
 {
   for (int i = 0; i < ITEMS; i++)
@@ -67,6 +67,44 @@ void printInventoryValue(float *prices, unsigned int stock[][STORES])
 
   printf("\n----------\n");
   printf("Valor calculado de la suma de todas las tiendas:\n  $%0.2lf", totalValue);
+  return;
+}
+
+void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
+{
+  cleanScreen();
+  // min-max item is organized as [ID, stock, store]
+  // Initialize with first item data and store 1.
+  int
+      minItem[3] = {ID[0], stock[0][0], 0},
+      maxItem[3] = {ID[0], stock[0][0], 0};
+
+  for (int i = 0; i < ITEMS; i++)
+  {
+    for (int j = 0; j < STORES; j++)
+    {
+      if (stock[i][j] < minItem[1])
+      {
+        minItem[0] = ID[i];
+        minItem[1] = stock[i][j];
+        minItem[2] = j;
+      }
+
+      if (stock[i][j] > maxItem[1])
+      {
+        maxItem[0] = ID[i];
+        maxItem[1] = stock[i][j];
+        maxItem[2] = j;
+      }
+    }
+  }
+
+  printf("Producto con menor existencias:\n");
+  printf(" ID: %i\n existencias: %i\n tienda %i\n-----\n", minItem[0], minItem[1], minItem[2] + 1);
+
+  printf("Producto con mayor existencias:\n");
+  printf(" ID: %i\n existencias: %i\n tienda %i\n", maxItem[0], maxItem[1], maxItem[2] + 1);
+
   return;
 }
 
@@ -154,7 +192,7 @@ int main()
   unsigned int stock[ITEMS][STORES];
   do
   {
-    char c;
+    char c = '\0';
     printf("\n----------\n");
     printf("Ingresa la opcion deseada:\n [a]. Cargar datos de productos\n [b]. Mostrar inventario completo\n [c]. Calcular valor total del inventario\n [d]. Encontrar el producto con mayor y menor existencia total\n [e]. Actualizar existencias de un producto especifico en una sucursal\n [f]. Salir\n  > ");
     scanf(" %c", &c);
@@ -180,6 +218,10 @@ int main()
         printf("No hay datos por mostrar\n");
       break;
     case 'd':
+      if (isDataSetted)
+        printMinMaxProductStock(ID, stock);
+      else
+        printf("No hay datos por mostrar\n");
       break;
     case 'e':
       break;
