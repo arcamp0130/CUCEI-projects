@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define ITEMS 2
+#define ITEMS 10
 #define STORES 3
 
 // Clear console screen. Only works in the newest platforms.

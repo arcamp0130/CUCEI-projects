@@ -35,5 +35,5 @@ You must create a menu with the following options:
    - [X] To a specific store.
    - [X] To all stores.
 4. [X] Find product(s) with less and more stock across all stores.
-5. [ ] Update a product stock on a specific store.
+5. [X] Update a product stock on a specific store.
 6. [X] Exit program
