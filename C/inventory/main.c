@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define ITEMS 2
+#define ITEMS 10
 #define STORES 3
 
 // Clear console screen. Only works in the newest platforms.
@@ -21,9 +21,10 @@ void initData(int *ID, float *prices, unsigned int stock[][STORES])
     for (int j = 0; j < STORES; j++)
       stock[i][j] = 0;
   }
+  return;
 }
 
-// Print full inventory, with IDs, prices and stock per store
+// Prints full inventory, with IDs, prices and stock per store
 void printInventory(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 {
   cleanScreen();
@@ -52,9 +53,11 @@ void printInventoryValue(float *prices, unsigned int stock[][STORES])
 {
   cleanScreen();
   double totalValue = 0;
+  // Search in store
   for (int i = 0; i < STORES; i++)
   {
     double storeValue = 0;
+    // Search item in store
     for (int j = 0; j < ITEMS; j++)
       // Check for stock of j product in i store
       // and multiplies it for the price of the product j
@@ -70,6 +73,8 @@ void printInventoryValue(float *prices, unsigned int stock[][STORES])
   return;
 }
 
+// Searches for products with less and more stock across all stores
+// and prints product data and location (ID, stock and store).
 void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
 {
   cleanScreen();
@@ -79,10 +84,13 @@ void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
       minItem[3] = {ID[0], stock[0][0], 0},
       maxItem[3] = {ID[0], stock[0][0], 0};
 
+  // Search items
   for (int i = 0; i < ITEMS; i++)
   {
+    // Search items' store
     for (int j = 0; j < STORES; j++)
     {
+      // When finding a lower stock than last found
       if (stock[i][j] < minItem[1])
       {
         minItem[0] = ID[i];
@@ -90,6 +98,7 @@ void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
         minItem[2] = j;
       }
 
+      // When finding a higher stock than last found
       if (stock[i][j] > maxItem[1])
       {
         maxItem[0] = ID[i];
@@ -99,6 +108,7 @@ void printMinMaxProductStock(int *ID, unsigned int stock[][STORES])
     }
   }
 
+  // Printing results
   printf("Producto con menor existencias:\n");
   printf(" ID: %i\n existencias: %i\n tienda %i\n-----\n", minItem[0], minItem[1], minItem[2] + 1);
 
@@ -122,6 +132,8 @@ bool idExists(unsigned int *IDs, int input)
 // belongs to Natural numbers.
 bool isPositiveInteger(float input)
 {
+  // Evaluating if input has decimal part and
+  // being higer than 0
   return (int)input == input && input > 0;
 }
 
@@ -184,12 +196,12 @@ bool setData(unsigned int *IDs, float *prices, unsigned int stock[][STORES])
 
 int main()
 {
-  cleanScreen();
   bool exit = false,
        isDataSetted = false;
   unsigned int ID[ITEMS];
   float prices[ITEMS];
   unsigned int stock[ITEMS][STORES];
+  cleanScreen();
   do
   {
     char c = '\0';
