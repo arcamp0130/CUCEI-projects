@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "inc/clean_screen.h"
+#include <math.h>
+#include "src/menu.c"
+#include "src/clean_screen.c"
 int main()
 {
-  printf("Hello world!\n");
+  menu();
   cleanScreen();
-  printf("You should see a clean screen this far.\n");
   return 0;
 }
