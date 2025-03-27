@@ -6,7 +6,12 @@
 .github
 .devcontainer
 
+**/out
+
 *.exe
 *.o
 *.i
 *.s
+
+**/CMakeLists.txt
+**/CMakePresets.json
