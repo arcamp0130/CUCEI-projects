@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <math.h>
-#include "src/menu.c"
-#include "src/clean_screen.c"
+#include "menu.h"
+#include "clean_screen.h"
+
 int main()
 {
-  menu();
   cleanScreen();
+  menu();
   return 0;
 }
