@@ -6,4 +6,6 @@ void moduleMathDialog();
 void productDialog();
 void quadraticFormulaDialog();
 void substractionDialog();
+void fibonacciDialog();
+void factorialDialog();
 #endif // DIALOGS_H_HEADER
