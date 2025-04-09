@@ -30,7 +30,7 @@ void menu()
       differenceDialog();
       break;
     case '%':
-      moduleMathDialog();
+      modulusMathDialog();
       break;
     case 'x':
       quadraticFormulaDialog();

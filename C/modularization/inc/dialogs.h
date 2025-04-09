@@ -2,7 +2,7 @@
 #define DIALOGS_H_HEADER
 void additionDialog();
 void differenceDialog();
-void moduleMathDialog();
+void modulusMathDialog();
 void productDialog();
 void quadraticFormulaDialog();
 void substractionDialog();

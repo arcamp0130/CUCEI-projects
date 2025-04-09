@@ -4,7 +4,7 @@
 #include "math/difference.h"
 #include "math/factorial.h"
 #include "math/fibonacci.h"
-#include "math/module.h"
+#include "math/modulus.h"
 #include "math/product.h"
 #include "math/quadratic_formula.h"
 #include "math/substraction.h"
@@ -43,7 +43,7 @@ void differenceDialog()
   return;
 }
 
-void moduleMathDialog()
+void modulusMathDialog()
 {
   printf("Modulo\n-----\n");
   float a, b;
@@ -62,7 +62,7 @@ void moduleMathDialog()
     scanf(" %f", &b);
   } while ((int)b != b);
 
-  result = moduleMath((int)a, (int)b);
+  result = modulusMath((int)a, (int)b);
 
   cleanScreen();
   printf("Resultado del modulo\n %i\n-----\n", result);
