@@ -1,2 +1,4 @@
-float difference (float a, float b) {
+float difference(float a, float b)
+{
+  return a / b;
 }

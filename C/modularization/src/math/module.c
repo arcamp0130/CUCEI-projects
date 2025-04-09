@@ -1,3 +1,4 @@
-float moduleMath(float a, float b)
+int moduleMath(int a, int b)
 {
+  return a % b;
 }
