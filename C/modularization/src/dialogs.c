@@ -130,7 +130,20 @@ void substractionDialog()
 
 void fibonacciDialog()
 {
+  float n = 0;
+  int result = 0;
+  printf("Numero de fibonacci\n-----\n");
+  printf("Introduza un numero n para calcular su suma de fibonacci\n");
+  do
+  {
+    printf("Debe ser entero\n > ");
+    scanf(" %f", &n);
+  } while ((int)n != n);
 
+  result = fibonacci((int)n);
+  cleanScreen();
+  printf("El resultado de fibonacci es\n%i\n-----\n", result);
+  
   return;
 }
 
