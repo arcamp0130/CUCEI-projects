@@ -149,5 +149,18 @@ void fibonacciDialog()
 
 void factorialDialog()
 {
+  float n = 0;
+  unsigned int result = 0;
+  printf("Factorial de n (n!).\n-----\n");
+  printf("Introduzca un número n para calcular su factorial\n");
+  do
+  {
+    printf("Debe ser entero\n > ");
+    scanf(" %f", &n);
+  } while ((int)n != n);
+  result = factorial((int)n);
+  
+  cleanScreen();
+  printf("Resultado de factorial\n %i\n-----\n", result);
   return;
 }
