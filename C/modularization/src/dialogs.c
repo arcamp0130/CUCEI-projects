@@ -89,8 +89,11 @@ void quadraticFormulaDialog()
 {
   float a = 0, b = 0, c = 0, delta = 0, result[2] = {0, 0};
   printf("Sea la ecuacion ax^2 + bx + c = 0.\nIngrese los valores de a, b y c para calcular las raices de la ecuacion:\n-----\n");
-  printf(" a > ");
-  scanf(" %f", &a);
+  do {
+    printf("Diferente de 0\n");
+    printf(" a > ");
+    scanf(" %f", &a);
+  } while (a == 0);
   printf(" b > ");
   scanf(" %f", &b);
   printf(" c > ");
@@ -106,7 +109,7 @@ void quadraticFormulaDialog()
     if (result[0] == result[1])
       printf("x = %0.2f", result[0]);
     else
-      printf( " x_1 = %0.2f\n x_2 = %0.2f", result[0], result[1]);
+      printf(" x_1 = %0.2f\n x_2 = %0.2f", result[0], result[1]);
   }
   printf("\n-----\n");
   return;
@@ -143,7 +146,7 @@ void fibonacciDialog()
   result = fibonacci((int)n);
   cleanScreen();
   printf("El resultado de fibonacci es\n%i\n-----\n", result);
-  
+
   return;
 }
 
