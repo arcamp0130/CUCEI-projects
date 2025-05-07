@@ -89,7 +89,8 @@ void quadraticFormulaDialog()
 {
   float a = 0, b = 0, c = 0, delta = 0, result[2] = {0, 0};
   printf("Sea la ecuacion ax^2 + bx + c = 0.\nIngrese los valores de a, b y c para calcular las raices de la ecuacion:\n-----\n");
-  do {
+  do
+  {
     printf("Diferente de 0\n");
     printf(" a > ");
     scanf(" %f", &a);
@@ -155,14 +156,14 @@ void factorialDialog()
   float n = 0;
   unsigned int result = 0;
   printf("Factorial de n (n!).\n-----\n");
-  printf("Introduzca un número n para calcular su factorial\n");
+  printf("Introduzca un numero n para calcular su factorial\n");
   do
   {
-    printf("Debe ser entero\n > ");
+    printf("Debe ser entero positivo\n > ");
     scanf(" %f", &n);
-  } while ((int)n != n);
+  } while ((int)n != n || n < 0);
   result = factorial((int)n);
-  
+
   cleanScreen();
   printf("Resultado de factorial\n %i\n-----\n", result);
   return;
