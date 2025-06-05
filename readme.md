@@ -8,7 +8,7 @@
 
 **👋 Hello there!**
 
-Feel free to check every part of these bunch of small projects.
+Feel free to check every part of these projects.
 
 ## 📖 Let's get started
 This repository was created with the special purpose of upload and update every single project created by CUCEI professors in order to get multiple skills in programming.
