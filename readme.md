@@ -3,7 +3,8 @@
 # Universitary Center of Exact Sciences and Engineering (CUCEI) - Projects
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/arcamp0130/CUCEI-projects)
-
+[![Repo stars](https://img.shields.io/github/stars/arcamp0130/CUCEI-projects?logo=github)](https://github.com/arcamp0130/CUCEI-projects) <br>
+[![C language](https://img.shields.io/badge/C_lang-356287?logo=c&logoColor=white)](https://github.com/arcamp0130/CUCEI-projects/tree/main/C)
 </div>
 
 **👋 Hello there!**
