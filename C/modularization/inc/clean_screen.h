@@ -1,0 +1,4 @@
+#ifndef CLEAN_SCREEN_H_INCLUDED
+#define CLEAN_SCREEN_H_INCLUDED
+void cleanScreen();
+#endif // CLEAN_SCREEN_H_INCLUDED
