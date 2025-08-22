@@ -61,5 +61,5 @@ Since this repo is planned to have several languages, here you can find which to
 Some projects may not be available within this repo, but you can find a list of them below. <br>
 Full explanation for every project is available on each relate repo.
 ### Hunt the Wumpus
-[![Hunt the Wumpus - Badge](https://img.shields.io/badge/Hunt_the_wumpus-Under_development-834e16?logo=github&logoColor=white&labelColor=22212C)](https://github.com/arcamp0130/CUCEI-projects/tree/main/C) <br>
+[![Hunt the Wumpus - Badge](https://img.shields.io/badge/Hunt_the_wumpus-Under_development-834e16?logo=github&logoColor=white&labelColor=22212C)](https://github.com/arcamp0130/hunt-the-wumpus) <br>
 This is a recreation of the "Hunt the Wumpus" game, that consists of hunting a creature known as *The Wumpus*. You only got a chance to hit and hunt it; if you fail, *the wumpus* hunts you back.
